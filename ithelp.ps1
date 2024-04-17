@@ -1,20 +1,28 @@
+#ForQuestion https://ithelp.ithome.com.tw/questions/10215516
 
-#½Ğ¥ı³]©w¦n¸ô®|°Ñ¼Æ¡A§Ú¥u¥Î§Ú¹q¸£¤Wªº³]©w¤U¥h¹w³]¸ô®|ªº¡A½Ğ¨Ì·Ó§Aªº¹q¸£¸ô®|­×§ï
-
-$LinePath = $env:LOCALAPPDATA+"\LINE\bin\LineLauncher.exe"
-$WordPath = ${env:ProgramFiles(x86)}+"\Microsoft Office\root\Office16"
-
-
-#°»´ú¨ì¿ù»~°T®§®É¤£¸õ¥XÄµ§i°T®§
+<#
+#è«‹å…ˆè¨­å®šå¥½è·¯å¾‘åƒæ•¸ï¼Œæˆ‘åªç”¨æˆ‘é›»è…¦ä¸Šçš„è¨­å®šä¸‹å»é è¨­è·¯å¾‘çš„ï¼Œè«‹ä¾ç…§ä½ çš„é›»è…¦è·¯å¾‘ä¿®æ”¹
+#$LinePath = $env:LOCALAPPDATA+"\LINE\bin\LineLauncher.exe"
+#$WordPath = ${env:ProgramFiles(x86)}+"\Microsoft Office\root\Office16"
+å¦‚æœä½ åªæ˜¯æƒ³è¦æ‰“é–‹ç¨‹å¼ï¼Œè«‹ä½¿ç”¨
+    Start-Process -FilePath $ç¨‹å¼è®Šæ•¸åç¨±
+    ç„¶å¾Œå†æ­é…do{
+        Start-Sleep -Seconds 1
+        if (åµæ¸¬ç¨‹å¼æ˜¯å¦æœ‰å‡ºä¾†äº†){
+            å¦‚æœæœ‰å°±breakè·³å‡ºè¿´åœˆ
+        }
+    }while($true)    
+#>
+#åµæ¸¬åˆ°éŒ¯èª¤è¨Šæ¯æ™‚ä¸è·³å‡ºè­¦å‘Šè¨Šæ¯
 $ErrorActionPreference = "SilentlyContinue"
 
-##PS¤º¦³«Ü¦hÀô¹ÒÅÜ¼Æ¥i¥H¤Ş¥Î¡A´î¤Ö¥´¤@°ï¨S¥Îªº¦r¡A­n¬d¸ß¥Ø«e¯à¥ÎªºÀô¹ÒÅÜ¼Æ¥i¥H¥´
+##PSå…§æœ‰å¾ˆå¤šç’°å¢ƒè®Šæ•¸å¯ä»¥å¼•ç”¨ï¼Œæ¸›å°‘æ‰“ä¸€å †æ²’ç”¨çš„å­—ï¼Œè¦æŸ¥è©¢ç›®å‰èƒ½ç”¨çš„ç’°å¢ƒè®Šæ•¸å¯ä»¥æ‰“
 #dir env:
-#´N¥i¥HÅã¥Ü§A¥Ø«e¹q¸£¦³ªºÀô¹ÒÅÜ¼Æ¤F
+#å°±å¯ä»¥é¡¯ç¤ºä½ ç›®å‰é›»è…¦æœ‰çš„ç’°å¢ƒè®Šæ•¸äº†
 
 if (($PSVersionTable).PSVersion.Major -lt 5){
-    Write-Host "½Ğ¦bPSª©¥»¤­¥H¤WªºÀô¹Ò¤U¨Ï¥ÎÁÂÁÂ"
-    Read-Host -Prompt "½Ğ¿é¤J¥ô¤@ÁäÃö³¬"
+    Write-Host "è«‹åœ¨PSç‰ˆæœ¬äº”ä»¥ä¸Šçš„ç’°å¢ƒä¸‹ä½¿ç”¨è¬è¬"
+    Read-Host -Prompt "è«‹è¼¸å…¥ä»»ä¸€éµé—œé–‰"
 }
 
 Add-Type @"
@@ -31,42 +39,30 @@ Add-Type @"
         public static extern bool SetForegroundWindow(IntPtr hWnd);
     }
 "@
-#¨Ï¥ÎWinAPI¨ÓÅıµøµ¡¹F¨ì³Ì¤j¤Æ¸ò«e¥xÅã¥Ü
+#ä½¿ç”¨WinAPIä¾†è®“è¦–çª—é”åˆ°æœ€å¤§åŒ–è·Ÿå‰å°é¡¯ç¤º
 #https://learn.microsoft.com/zh-tw/windows/win32/api/winuser/nf-winuser-showwindow
 #https://learn.microsoft.com/zh-tw/windows/win32/api/winuser/nf-winuser-setforegroundwindow
 
 
 <#
-
-    ¦pªG§A¥u¬O·Q­n¥´¶}µ{¦¡¡A½Ğ¨Ï¥Î
-    Start-Process -FilePath "ÀÉ®×¸ô®|"
-    µM«á¦A·f°tdo{
-        Start-Sleep -Seconds 1
-        if (°»´úµ{¦¡¬O§_¦³¥X¨Ó¤F){
-        ¦pªG¦³´Nbreak¸õ¥X°j°é
-        }
-    }while($true)    
-
-
-    AppName¹ïÀ³ªº´N¬O¤u§@ºŞ²z­û¤ºªº¸Ô²Ó¸ê®Æªº¦WºÙ
+    ä¸»è¦ç¨‹å¼ä½¿ç”¨æ•™å­¸
+    AppNameå°æ‡‰çš„å°±æ˜¯å·¥ä½œç®¡ç†å“¡å…§çš„è©³ç´°è³‡æ–™çš„åç¨±
     Line   => Line
     Chrome => Chrome
     Word   => WINWORD
 
-    Mode¥u¯à¿é¤J¼Æ¦r¡A¹ïÀ³¦p¤U
-    0 => ÁôÂÃµøµ¡
-    1 => Åã¥Üµøµ¡(¦ı¥u¦³¦^´_¨ì¤W¦¸ªºª¬ºA)
-    2 => ±Ò°Êµøµ¡³Ì¤p¤Æ
-    3 => ±Ò°Êµøµ¡³Ì¤j¤Æ
-    4 => Åã¥Üµøµ¡(¨S¦³±Ò°Ê)
-    5 => Åã¥Üµøµ¡
+    Modeåªèƒ½è¼¸å…¥æ•¸å­—ï¼Œå°æ‡‰å¦‚ä¸‹
+    0 => éš±è—è¦–çª—
+    1 => é¡¯ç¤ºè¦–çª—(ä½†åªæœ‰å›å¾©åˆ°ä¸Šæ¬¡çš„ç‹€æ…‹)
+    2 => å•Ÿå‹•è¦–çª—æœ€å°åŒ–
+    3 => å•Ÿå‹•è¦–çª—æœ€å¤§åŒ–
+    4 => é¡¯ç¤ºè¦–çª—(æ²’æœ‰å•Ÿå‹•)
+    5 => é¡¯ç¤ºè¦–çª—
 
     Example :   
-
-    ShowAppFromTaskBar "WINWORD" 3 ³Ì¤j¤Æ«e¥xÅã¥Ü
-    ShowAppFromTaskBar "WINWORD" 4 ¹w³]µøµ¡¤j¤pÅã¥Ü
-    ShowAppFromTray "Line" 4 ¹w³]µøµ¡¤j¤pÅã¥Ü
-
+    ShowAppFromTaskBar "WINWORD" 3  #æœ€å¤§åŒ–å‰å°é¡¯ç¤º
+    ShowAppFromTaskBar "WINWORD" 4 #é è¨­è¦–çª—å¤§å°é¡¯ç¤º
+    ShowAppFromTray "Line" 4 #é è¨­è¦–çª—å¤§å°é¡¯ç¤º
 
 
 #>
@@ -88,11 +84,11 @@ function ShowAppFromTaskBar{
             if ($hwnd -ne 0){
                 [User32]::ShowWindow($hwnd, $Mode)
                 [User32]::SetForegroundWindow($hwnd)
-                Write-Host "Åã¥Ü¦¨¥\"
+                Write-Host "é¡¯ç¤ºæˆåŠŸ"
             }
         }
     }catch{
-        Write-Host "¿ù»~°T®§¡G $($_.Exception.Message)"
+        Write-Host "éŒ¯èª¤è¨Šæ¯ï¼š $($_.Exception.Message)"
         return $null
     }
 }
@@ -106,7 +102,7 @@ function ShowAppFromTray{
     )
 
     try{
-        #±Ò°ÊAPP 
+        #å•Ÿå‹•APP 
         $appPath = GetExePath $AppName
         Start-Process $appPath
         do{
@@ -124,18 +120,18 @@ function ShowAppFromTray{
             if ($hwnd -ne 0){
                 [User32]::ShowWindow($hwnd, $Mode)
                 [User32]::SetForegroundWindow($hwnd)
-                Write-Host "Åã¥Ü¦¨¥\"
+                Write-Host "é¡¯ç¤ºæˆåŠŸ"
             }
         }
     }catch{
-        Write-Host "¿ù»~°T®§¡G $($_.Exception.Message)"
+        Write-Host "éŒ¯èª¤è¨Šæ¯ï¼š $($_.Exception.Message)"
         return $null
     }
 }
 
 function GetExePath([string]$AppName){
     try{
-        if (!([regex]::IsMatch($AppName,".*(?:\.)exe"))){ #¥¿³Wªí¹F¦¡¦pªG²Å¦X«h·s¼W.exe¨ì°Ñ¼Æ«á¤è
+        if (!([regex]::IsMatch($AppName,".*(?:\.)exe"))){ #æ­£è¦è¡¨é”å¼å¦‚æœç¬¦åˆå‰‡æ–°å¢.exeåˆ°åƒæ•¸å¾Œæ–¹
             $AppName+=".exe"
         }
         $App =  Get-WmiObject Win32_Process -Filter "Name='$AppName'" 
