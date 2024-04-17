@@ -23,6 +23,7 @@ $ErrorActionPreference = "SilentlyContinue"
 if (($PSVersionTable).PSVersion.Major -lt 5){
     Write-Host "請在PS版本五以上的環境下使用謝謝"
     Read-Host -Prompt "請輸入任一鍵關閉"
+    exit
 }
 
 Add-Type @"
